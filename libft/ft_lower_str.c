@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_lower_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcrisp <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/05 02:57:10 by jcrisp            #+#    #+#             */
-/*   Updated: 2018/10/08 14:56:11 by jcrisp           ###   ########.fr       */
+/*   Created: 2019/03/25 01:51:36 by jcrisp            #+#    #+#             */
+/*   Updated: 2019/03/25 01:52:46 by jcrisp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	*ft_lower_str(char *str)
 {
-	unsigned	i;
-	char		*nstr;
+	int	i;
 
 	i = 0;
-	nstr = ft_strnew(ft_strlen((char*)s));
-	if (!nstr)
-		return (NULL);
-	while (s[i])
-	{
-		nstr[i] = f(i, s[i]);
-		i++;
-	}
-	nstr[i] = '\0';
-	return (nstr);
+	while (str[i++])
+		if (str[i - 1] >= 'A' && 'Z' >= str[i - 1])
+			str[i - 1] += 32;
+	return (str);
 }

@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_putnchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcrisp <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/05 02:57:10 by jcrisp            #+#    #+#             */
-/*   Updated: 2018/10/08 14:56:11 by jcrisp           ###   ########.fr       */
+/*   Created: 2019/03/25 01:50:34 by jcrisp            #+#    #+#             */
+/*   Updated: 2019/03/25 01:51:02 by jcrisp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	ft_putnchar(char c, int n)
 {
-	unsigned	i;
-	char		*nstr;
-
-	i = 0;
-	nstr = ft_strnew(ft_strlen((char*)s));
-	if (!nstr)
-		return (NULL);
-	while (s[i])
-	{
-		nstr[i] = f(i, s[i]);
-		i++;
-	}
-	nstr[i] = '\0';
-	return (nstr);
+	while (n--)
+		ft_putchar(c);
 }

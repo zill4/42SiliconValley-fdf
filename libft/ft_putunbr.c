@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_putunbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcrisp <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/05 02:57:10 by jcrisp            #+#    #+#             */
-/*   Updated: 2018/10/08 14:56:11 by jcrisp           ###   ########.fr       */
+/*   Created: 2019/03/25 01:48:42 by jcrisp            #+#    #+#             */
+/*   Updated: 2019/03/25 01:49:59 by jcrisp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	ft_putunbr(uintmax_t n)
 {
-	unsigned	i;
-	char		*nstr;
+	char	c;
 
-	i = 0;
-	nstr = ft_strnew(ft_strlen((char*)s));
-	if (!nstr)
-		return (NULL);
-	while (s[i])
+	c = '0';
+	if (n < 10)
+		ft_putchar(c + n);
+	else
 	{
-		nstr[i] = f(i, s[i]);
-		i++;
+		ft_putunbr(n / 10);
+		ft_putunbr(n % 10);
 	}
-	nstr[i] = '\0';
-	return (nstr);
 }

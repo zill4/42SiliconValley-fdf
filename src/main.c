@@ -273,16 +273,16 @@ int main(int argc, char **argv)
 
 //----------------------------------------------------------------------------------- 
     // /* testing inputs */
-    // void *mlx_ptr;
-	// void *win_ptr;
-    // int grid = 12;
-    // t_point one;
-    // one.x = 10;
-    // one.y = 10;
-    // one.z = 42;
-	// mlx_ptr = mlx_init();
-	// win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FdF");
-    // draw_grid(mlx_ptr, win_ptr, grid);
-	// mlx_loop(mlx_ptr);
+    void *mlx_ptr;
+	void *win_ptr;
+    int grid = 12;
+    t_point one;
+    one.x = 10;
+    one.y = 10;
+    one.z = 42;
+	mlx_ptr = mlx_init();
+	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FdF");
+    draw_grid(mlx_ptr, win_ptr, grid);
+	mlx_loop(mlx_ptr);
     return (0);
 }
