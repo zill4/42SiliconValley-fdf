@@ -38,6 +38,8 @@ typedef struct		s_argu
 # define FT_BIT(x) (1 << (x))
 # define SPECIFIERS "spdiouxXc"
 # define SPECI_SIZE (ft_strlen(SPECIFIERS))
+# define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+# define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
 # define S (0)
 # define P (1)
@@ -153,5 +155,7 @@ int					print_hex(va_list ap, t_argu *attr);
 int					print_dec(va_list ap, t_argu *attr);
 int					print_oct(va_list ap, t_argu *attr);
 int					print_char(va_list ap, t_argu *attr);
+int					ft_count_words(const char *str, char c);
+void				ft_append(t_list **alst, t_list *new);
 
 #endif

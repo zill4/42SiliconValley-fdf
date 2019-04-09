@@ -13,52 +13,70 @@
 NAME = fdf
 
 #	src / obj files
-SRC	= main.c
-OBJ	= $(addprefix $(OBJDIR), $(SRC:.c=.o))
+SRC	= main.c err.c hookers.c parse.c rendo.c
+OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
-#	compiler
-CC	= gcc
-CFLAGS	= -Wall -Wextra -Werror -g
+CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror
 
-#	ft library
-FT	= ./libft/
-FT_LIB	=	$(addprefix $(FT), libft.a)
-FT_INC	=	-I ./libft
-FT_LNK  = 	-L	./libft -l ft
+LIBFT	= ./libft/libft.a
+LIBINC	= -I./libft
+LIBLINK	= -L./libft -lft
 
-#	MLX library
-MLX		= ./miniLibX/
-MLX_LIB = $(addprefix $(MLX), mlx.a)
-MLX_INC	=	-I ./miniLibX
-MLX_LNK =	-L ./miniLibX -l mlx -framework OpenGl -framework AppKit
+MLX		= ./minilibx/libmlx.a
+MLXINC	= -I./minilibx
+MLXLINK	= -L./minilibx -lmlx -framework OpenGL -framework AppKit
 
-#	directories
+LIBGFX		= ./libgfx/libgfx.a
+LIBGFXINC	= -I./libgfx
+LIBGFXLINK	= -L./libgfx -lgfx
+
 SRCDIR	= ./src/
 INCDIR	= ./includes/
 OBJDIR	= ./obj/
 
-all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
+all: obj libft mlx libgfx $(NAME)
+
+gfx:
+	rm -rf $(NAME)
+	rm -rf $(OBJDIR)
+	make -C ./libgfx fclean
+	make
 
 obj:
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
+	$(CC) $(CFLAGS) $(LIBINC) $(MLXINC) $(LIBGFXINC) -I $(INCDIR) -o $@ -c $<
 
-$(FT_LIB):
-	make -C $(FT)
+libft: $(LIBFT)
 
-$(MLX_LIB):
-	make -C $(MLX)
+mlx: $(MLX)
+
+libgfx: $(LIBGFX)
+
+$(LIBFT):
+	make -C ./libft
+
+$(MLX):
+	make -C ./minilibx
+
+$(LIBGFX):
+	make -C ./libgfx
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
+	$(CC) -o $(NAME) $(OBJ) $(MLXLINK) $(LIBGFXLINK) $(LIBLINK)
 
 clean:
-		rm -rf $(OBJDIR)
-		make -C $(FT) clean
-		make -C $(MLX) clean
-fclean:
-		rm -rf $(NAME)
-		make -C $(FT) fclean
+	rm -rf $(OBJDIR)
+	make -C ./libft clean
+	make -C ./minilibx clean
+	make -C ./libgfx clean
+
+fclean: clean
+	rm -rf $(NAME)
+	make -C ./libft fclean
+	make -C ./libgfx fclean
+
 re: fclean all
+
